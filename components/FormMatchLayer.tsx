@@ -274,16 +274,8 @@ function DragAndDropMatchTableGroupMember({
             <div
               className={`flex flex-col justify-center items-center flex-1 ${getRankerClass(secondTeamGroupMember)}`}
             >
-              <p
-                className={`text-lg ${getRankerTextColorClass(secondTeamGroupMember)} font-semibold`}
-              >
-                {secondTeamGroupMember?.name}
-              </p>
-              <p
-                className={`text-sm ${getRankerTextColorClass(secondTeamGroupMember)} text-opacity-50`}
-              >
-                {secondTeamGroupMember?.nickname}
-              </p>
+              <p className={`text-lg font-semibold`}>{secondTeamGroupMember?.name}</p>
+              <p className={`text-sm text-opacity-50`}>{secondTeamGroupMember?.nickname}</p>
             </div>
             <p className="w-[45%] flex justify-center items-center border-l border-gold border-opacity-40">
               {secondTeamGroupMember?.positionScore?.[table.value as Position]}점
