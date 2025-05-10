@@ -30,6 +30,8 @@ export interface GroupMember {
   most_champions_main: string[] | null;
   most_champions_sub: string[] | null;
   most_champions: string[] | null;
+  prev_season_rank: number;
+  prev_season_score: number;
 }
 
 export const getGroupMembers = async (groupId: number) => {
