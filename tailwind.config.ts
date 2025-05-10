@@ -64,6 +64,13 @@ const config: Config = {
           'linear-gradient(90deg, rgba(0, 180, 237, 0.35) 0%, rgba(0, 232, 241, 0.14) 50.69%, rgba(0, 255, 233, 0.7) 100%)',
         'gradient-primary-800':
           'linear-gradient(90deg, rgba(0, 180, 237, 0.7) 0%, rgba(0, 232, 241, 0.7) 88%, rgba(0, 255, 233, 0.7) 100%)',
+        'gradient-ranker': 'linear-gradient(95.16deg, #00B5DA -14.13%, #023199 77.34%)',
+        'gradient-rank-gold':
+          'linear-gradient(135.34deg, #D4A041 15.43%, #FBE67B 38.47%, #FCFBE7 53.36%, #F7D14E 69.97%, #D4A041 86.26%)',
+        'gradient-rank-silver':
+          'linear-gradient(137.95deg, #7A96AC 2.28%, #EAEFF3 19.8%, #C2D4E1 32.94%, #FFFFFF 50.16%, #D4DEE5 62.15%, #ABBDC8 78.69%, #BCCAD7 95.24%)',
+        'gradient-rank-bronze':
+          'linear-gradient(137.95deg, #A3652A 2.28%, #EFB06E 22.72%, #FEFBF2 39.27%, #F9C176 53.87%, #E77B33 69.93%, #DC702A 84.05%, #733D19 99.62%)',
       },
       colors: {
         'primary-100': '#00E3F1',
@@ -79,7 +86,7 @@ const config: Config = {
         success: '#00b4ed',
       },
       gridTemplateColumns: {
-        'user-list-table': '2fr 3fr 1fr 1fr 1fr 1fr 1fr',
+        'user-list-table': '3fr 3fr 1fr 1fr 1fr 1fr 1fr',
         'user-stats-table': '2fr 2fr 2fr 2fr 4fr',
         'match-user-table': '58px 1fr 1fr',
       },

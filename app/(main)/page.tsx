@@ -23,21 +23,11 @@ const DisplayGroupMembers = ({ groupMembers, isLoading }: DisplayGroupMembersPro
   }
 
   const getRankerClass = (member: GroupMember) => {
-    if (member.prev_season_rank > 3) {
-      return '';
+    if (member.prev_season_rank <= 3) {
+      return 'bg-gradient-ranker';
     }
 
-    if (member.prev_season_rank === 1) {
-      return 'bg-gradient-to-br from-[#D4AF37] via-[#FFD700] to-[#FFF8DC] text-[#FCF8EC]';
-    }
-
-    if (member.prev_season_rank === 2) {
-      return 'bg-gradient-to-r from-[#f7f7f7] via-[#e1e1e1] via-[#ffffff] via-[#e1e1e1] to-[#f7f7f7] text-[#1E293B]';
-    }
-
-    if (member.prev_season_rank === 3) {
-      return 'bg-gradient-to-br from-[#CD7F32] via-[#D98C3D] to-[#E6A157]';
-    }
+    return '';
   };
 
   const getPositionClass = (member: GroupMember, position: Position) => {
@@ -46,12 +36,34 @@ const DisplayGroupMembers = ({ groupMembers, isLoading }: DisplayGroupMembersPro
     return '';
   };
 
+  const getRankerString = (member: GroupMember) => {
+    if (member.prev_season_rank === 1) {
+      return '1st';
+    }
+
+    if (member.prev_season_rank === 2) {
+      return '2nd';
+    }
+
+    if (member.prev_season_rank === 3) {
+      return '3rd';
+    }
+
+    return '';
+  };
+
   return groupMembers.map((groupMember) => (
     <div
       key={groupMember.id}
-      className={`w-full h-15 grid grid-cols-user-list-table text-xl text-center items-center gap-x-2 border-b border-white border-opacity-50 ${getRankerClass(groupMember)}`}
+      className={`w-full h-15 grid grid-cols-user-list-table text-xl text-center items-center gap-x-2 border-b border-white border-opacity-50 ${getRankerClass(groupMember)} px-6`}
     >
-      <p>{groupMember.name}</p>
+      <div className="flex justify-between items-center gap-x-2">
+        <p className="w-8">
+          {groupMember.prev_season_rank <= 3 && <span>{getRankerString(groupMember)}</span>}
+        </p>
+        <p>{groupMember.name}</p>
+        <p className="w-8"></p>
+      </div>
       <p>{groupMember.nickname}</p>
       {POSITION_LIST.map((position) => {
         const positionScore = groupMember.positionScore[position];
@@ -75,7 +87,7 @@ export default function Home() {
         <CommonInput placeholder="이름, 닉네임 검색" value={searchUser} onChange={setSearchUser} />
       </div>
       <div className="flex-1 flex flex-col mt-8">
-        <header className="w-full h-15 grid grid-cols-user-list-table text-xl items-center gap-x-2 bg-white bg-opacity-5 border-b border-white">
+        <header className="w-full h-15 grid grid-cols-user-list-table text-xl items-center gap-x-2 bg-white bg-opacity-5 border-b border-white px-6">
           {userListTableHeader.map((header) => (
             <p key={header} className="text-center">
               {header}

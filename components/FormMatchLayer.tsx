@@ -220,34 +220,16 @@ function DragAndDropMatchTableGroupMember({
   }, [matchTeams]);
 
   const getRankerClass = (member: GroupMember) => {
-    if (member.prev_season_rank > 3) {
-      return '';
-    }
-
     if (member.prev_season_rank === 1) {
-      return 'bg-gradient-to-br from-[#D4AF37] via-[#FFD700] to-[#FFF8DC]';
+      return 'bg-gradient-rank-gold';
     }
 
     if (member.prev_season_rank === 2) {
-      return 'bg-gradient-to-r from-[#f7f7f7] via-[#e1e1e1] via-[#ffffff] via-[#e1e1e1] to-[#f7f7f7]';
+      return 'bg-gradient-rank-silver';
     }
 
     if (member.prev_season_rank === 3) {
-      return 'bg-gradient-to-br from-[#CD7F32] via-[#D98C3D] to-[#E6A157]';
-    }
-  };
-
-  const getRankerTextColorClass = (member: GroupMember) => {
-    if (member.prev_season_rank >= 3) {
-      return 'text-white';
-    }
-
-    if (member.prev_season_rank === 1) {
-      return 'text-[#FCF8EC] text-opacity-100';
-    }
-
-    if (member.prev_season_rank === 2) {
-      return 'text-[#1E293B] text-opacity-100';
+      return 'bg-gradient-rank-bronze';
     }
   };
 
@@ -264,19 +246,18 @@ function DragAndDropMatchTableGroupMember({
       >
         {firstTeamGroupMember.id && (
           <>
-            <div
-              className={`flex flex-col justify-center items-center flex-1 ${getRankerClass(firstTeamGroupMember)}`}
-            >
-              <p
-                className={`text-lg ${getRankerTextColorClass(firstTeamGroupMember)} font-semibold`}
-              >
-                {firstTeamGroupMember?.name}
-              </p>
-              <p
-                className={`text-sm ${getRankerTextColorClass(firstTeamGroupMember)} text-opacity-50`}
-              >
-                {firstTeamGroupMember?.nickname}
-              </p>
+            <div className={`flex flex-col justify-center items-center flex-1`}>
+              <div className="flex items-center gap-x-1">
+                {firstTeamGroupMember.prev_season_rank <= 3 && (
+                  <div
+                    className={`w-5 h-5 rounded flex items-center justify-center ${getRankerClass(firstTeamGroupMember)}`}
+                  >
+                    <Image alt="rank-trophy" height={18} src="/icons/rank-trophy.svg" width={13} />
+                  </div>
+                )}
+                <p className={`text-lg font-semibold`}>{firstTeamGroupMember?.name}</p>
+              </div>
+              <p className={`text-sm text-opacity-50`}>{firstTeamGroupMember?.nickname}</p>
             </div>
             <p className="w-[45%] flex justify-center items-center border-l border-gold border-opacity-40">
               {firstTeamGroupMember?.positionScore?.[table.value as Position]}점
