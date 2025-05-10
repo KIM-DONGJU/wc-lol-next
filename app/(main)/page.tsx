@@ -22,6 +22,24 @@ const DisplayGroupMembers = ({ groupMembers, isLoading }: DisplayGroupMembersPro
     );
   }
 
+  const getRankerClass = (member: GroupMember) => {
+    if (member.prev_season_rank > 3) {
+      return '';
+    }
+
+    if (member.prev_season_rank === 1) {
+      return 'bg-gradient-to-br from-[#D4AF37] via-[#FFD700] to-[#FFF8DC] text-[#FCF8EC]';
+    }
+
+    if (member.prev_season_rank === 2) {
+      return 'bg-gradient-to-r from-[#f7f7f7] via-[#e1e1e1] via-[#ffffff] via-[#e1e1e1] to-[#f7f7f7] text-[#1E293B]';
+    }
+
+    if (member.prev_season_rank === 3) {
+      return 'bg-gradient-to-br from-[#CD7F32] via-[#D98C3D] to-[#E6A157]';
+    }
+  };
+
   const getPositionClass = (member: GroupMember, position: Position) => {
     if (member.mainPosition === position) return 'text-primary-100';
     if (member.subPosition === position) return 'text-secondary';
@@ -31,7 +49,7 @@ const DisplayGroupMembers = ({ groupMembers, isLoading }: DisplayGroupMembersPro
   return groupMembers.map((groupMember) => (
     <div
       key={groupMember.id}
-      className="w-full h-15 grid grid-cols-user-list-table text-xl text-center items-center gap-x-2 border-b border-white border-opacity-50"
+      className={`w-full h-15 grid grid-cols-user-list-table text-xl text-center items-center gap-x-2 border-b border-white border-opacity-50 ${getRankerClass(groupMember)}`}
     >
       <p>{groupMember.name}</p>
       <p>{groupMember.nickname}</p>
