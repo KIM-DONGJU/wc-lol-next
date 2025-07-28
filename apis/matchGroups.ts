@@ -1,4 +1,5 @@
 import { ONE_DAY } from '@/constants/date';
+import { Position } from '@/interfaces/position';
 import { supabase } from '@/lib/supabase';
 
 export interface MatchGroup {
@@ -29,7 +30,7 @@ interface CreateMatchGroupParams {
 }
 
 export const createMatchGroup = async ({ creatorId, groupName }: CreateMatchGroupParams) => {
-  const { data, error } = await supabase
+  const { data } = await supabase
     .from('match_groups')
     .insert([
       {
@@ -44,8 +45,8 @@ export const createMatchGroup = async ({ creatorId, groupName }: CreateMatchGrou
 
 interface FixedMatchGroupParams {
   groupId: number;
-  winnerGroupMemberIds: number[];
-  loserGroupMemberIds: number[];
+  winnerGroupMemberIds: Record<Position, number>;
+  loserGroupMemberIds: Record<Position, number>;
 }
 export const fixedMatchGroup = async ({
   groupId,
