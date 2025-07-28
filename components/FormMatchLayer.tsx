@@ -271,10 +271,17 @@ function DragAndDropMatchTableGroupMember({
       >
         {secondTeamGroupMember.id && (
           <>
-            <div
-              className={`flex flex-col justify-center items-center flex-1 ${getRankerClass(secondTeamGroupMember)}`}
-            >
-              <p className={`text-lg font-semibold`}>{secondTeamGroupMember?.name}</p>
+            <div className={`flex flex-col justify-center items-center flex-1`}>
+              <div className="flex items-center gap-x-1">
+                {secondTeamGroupMember.prev_season_rank <= 3 && (
+                  <div
+                    className={`w-5 h-5 rounded flex items-center justify-center ${getRankerClass(secondTeamGroupMember)}`}
+                  >
+                    <Image alt="rank-trophy" height={18} src="/icons/rank-trophy.svg" width={13} />
+                  </div>
+                )}
+                <p className={`text-lg font-semibold`}>{secondTeamGroupMember?.name}</p>
+              </div>
               <p className={`text-sm text-opacity-50`}>{secondTeamGroupMember?.nickname}</p>
             </div>
             <p className="w-[45%] flex justify-center items-center border-l border-gold border-opacity-40">
