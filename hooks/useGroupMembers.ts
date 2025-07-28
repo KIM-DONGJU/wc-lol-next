@@ -19,7 +19,14 @@ const useGroupMembers = (groupId: number) => {
     staleTime: ONE_HOUR,
   });
 
-  const filteredGroupMembers = groupMembers?.filter((groupMember) => {
+  const sortedGroupMembers = groupMembers?.sort((a, b) => {
+    if (a.name !== b.name) {
+      return a.name.localeCompare(b.name);
+    }
+    return 0;
+  });
+
+  const filteredGroupMembers = sortedGroupMembers?.filter((groupMember) => {
     if (!searchUser) return true;
     return (
       groupMember.name.includes(searchUser.trim()) ||

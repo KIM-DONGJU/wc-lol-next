@@ -34,8 +34,8 @@ export default function MatchGroupVictoryConfirmModal({
   });
 
   interface OnFixedMatchGroupParams {
-    winnerGroupMembers: number[];
-    loserGroupMembers: number[];
+    winnerGroupMembers: Record<Position, number>;
+    loserGroupMembers: Record<Position, number>;
   }
   const { mutate: onFixedMatchGroup } = useMutation({
     mutationFn: ({ winnerGroupMembers, loserGroupMembers }: OnFixedMatchGroupParams) => {
@@ -94,8 +94,17 @@ export default function MatchGroupVictoryConfirmModal({
       return;
     }
 
-    const getTeamMemberIds = (team: Record<Position, GroupMember>) =>
-      Object.values(team).map((member) => member.id);
+    const getTeamPositionMembersId = (team: Record<Position, GroupMember>) => {
+      const positionMembersId: Record<Position, number> = {
+        top: team.top.id,
+        jungle: team.jungle.id,
+        mid: team.mid.id,
+        adc: team.adc.id,
+        sup: team.sup.id,
+      };
+
+      return positionMembersId;
+    };
 
     const calculateWinCounts = (matches: Match[]) => {
       let firstTeamWinCount = 0;
@@ -113,22 +122,24 @@ export default function MatchGroupVictoryConfirmModal({
     };
 
     const { firstTeamWinCount, secondTeamWinCount } = calculateWinCounts(matches);
-    let winnerGroupMemberIds: number[] = [];
-    let loserGroupMemberIds: number[] = [];
+    let winnerGroupMembers: Record<Position, number> | null = null;
+    let loserGroupMembers: Record<Position, number> | null = null;
 
     if (firstTeamWinCount !== secondTeamWinCount) {
       const lastMatch = matches[matches.length - 1];
       const winningTeamIndex = firstTeamWinCount > secondTeamWinCount ? 0 : 1;
       const losingTeamIndex = 1 - winningTeamIndex;
 
-      winnerGroupMemberIds = getTeamMemberIds(lastMatch.teams[winningTeamIndex]);
-      loserGroupMemberIds = getTeamMemberIds(lastMatch.teams[losingTeamIndex]);
+      winnerGroupMembers = getTeamPositionMembersId(lastMatch.teams[winningTeamIndex]);
+      loserGroupMembers = getTeamPositionMembersId(lastMatch.teams[losingTeamIndex]);
     }
 
-    onFixedMatchGroup({
-      winnerGroupMembers: winnerGroupMemberIds,
-      loserGroupMembers: loserGroupMemberIds,
-    });
+    if (winnerGroupMembers && loserGroupMembers) {
+      onFixedMatchGroup({
+        winnerGroupMembers,
+        loserGroupMembers,
+      });
+    }
   };
 
   return (
