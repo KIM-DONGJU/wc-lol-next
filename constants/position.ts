@@ -7,4 +7,4 @@ export const POSITION_KR = {
   sup: '서폿',
 } as const;
 
-export const POSITION_LIST = ['top', 'mid', 'jungle', 'adc', 'sup'] as const;
+export const POSITION_LIST = ['top', 'jungle', 'mid', 'adc', 'sup'] as const;
